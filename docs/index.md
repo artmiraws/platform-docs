@@ -7,9 +7,10 @@ Application-specific documentation lives with the application (for example, the 
 its local-development and chart docs in its own repository).
 
 !!! info "Status"
-    The platform is a work in progress. The design and its open questions are recorded in
-    [Decisions](decisions/index.md); the roadmap is tracked in the `GITOPS-HUB`, `PLATFORM-RENAME`,
-    `PLATFORM-DOCS`, and `OBSERVABILITY` tasks.
+    This handbook is delivered like any other application: built in CI, pushed by digest, and
+    reconciled by Argo CD. The platform itself is a work in progress — the design and its open
+    questions are in [Decisions](decisions/index.md), and the roadmap is tracked in the
+    `GITOPS-HUB`, `PLATFORM-RENAME`, and `OBSERVABILITY` tasks.
 
 ## Start here
 
