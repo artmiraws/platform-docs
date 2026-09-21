@@ -16,6 +16,7 @@ its local-development and chart docs in its own repository).
 
 | I want to... | Go to |
 |---|---|
+| See what is committed, in discovery, or later | [Roadmap](roadmap.md) |
 | Understand what the platform is | [Getting started: overview](getting-started/overview.md) |
 | Know what I need before I start | [Getting started: prerequisites](getting-started/prerequisites.md) |
 | See how the repositories are laid out | [Getting started: repository structure](getting-started/repository-structure.md) |

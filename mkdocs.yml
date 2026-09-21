@@ -38,6 +38,7 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 nav:
   - Home: index.md
+  - Roadmap: roadmap.md
   - Getting started:
       - Overview: getting-started/overview.md
       - Prerequisites: getting-started/prerequisites.md
