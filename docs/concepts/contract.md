@@ -9,42 +9,22 @@ It decouples the two repositories. The platform can change how a value is produc
 the interface an application depends on. The contract is the only coupling point, and it is versioned
 and documented here.
 
-## Current shape (dev)
+## Shape
 
-Today the parameters are all app-scoped under `/todolist/<env>/`, because the platform provisions the
-single application's database and secrets. The keys the TodoList app reads:
+Split by ownership: **environment facts** are environment-scoped, **application facts** are namespaced
+under `apps/<app>`.
 
 ```text
-/todolist/dev/cluster_name
-/todolist/dev/ecr_repository_url
-/todolist/dev/db_host
-/todolist/dev/db_port
-/todolist/dev/db_name
-/todolist/dev/db_secret_arn
-/todolist/dev/app_secret_arn
-/todolist/dev/app_hostname
-/todolist/dev/ingress_certificate_arn
-/todolist/dev/external_secrets_store_name
-/todolist/dev/runner_scale_set_name
-```
-
-See [Worked example: TodoList](../onboarding/worked-example.md) for the actual values.
-
-## Shape (proposed)
-
-Split by ownership: **environment facts** are environment-scoped, **application facts** are
-namespaced under `apps/<app>`.
-
-```
 # environment facts (shared by every application)
 /platform/<env>/cluster_name
 /platform/<env>/region
 /platform/<env>/ecr_registry
 /platform/<env>/ingress_class
 /platform/<env>/external_secrets_store
-/platform/<env>/runner_scale_set
 
 # application facts (namespaced, so applications cannot collide)
+/platform/<env>/apps/<app>/image_repository
+/platform/<env>/apps/<app>/runner_scale_set
 /platform/<env>/apps/<app>/hostname
 /platform/<env>/apps/<app>/certificate_arn
 /platform/<env>/apps/<app>/db_host
@@ -56,12 +36,25 @@ namespaced under `apps/<app>`.
 
 A runner's read policy is scoped to the environment facts plus its own application's namespace.
 
-!!! warning "Not final"
-    Today the parameters are **all** app-scoped at `/todolist/<env>/...`, because the platform
-    provisions the application's database and secrets. Moving to the shape above is part of
-    `PLATFORM-RENAME` / `GITOPS-HUB` (ADR-013), and it forces a question the platform must answer:
-    does the platform provision an application's database and secrets, or does the application own
-    them and consume only platform facts?
+## Worked example (dev)
+
+```text
+/platform/dev/cluster_name                        todolist-dev
+/platform/dev/region                              us-east-1
+/platform/dev/ecr_registry                        <account>.dkr.ecr.us-east-1.amazonaws.com
+/platform/dev/ingress_class                       alb
+/platform/dev/external_secrets_store              aws-secrets-manager
+/platform/dev/apps/todolist/image_repository      <account>.dkr.ecr.us-east-1.amazonaws.com/todolist
+/platform/dev/apps/todolist/runner_scale_set      arc-runner-set
+/platform/dev/apps/todolist/hostname              dev.todolist.<base_domain>
+/platform/dev/apps/todolist/db_host               todolist-dev.cluster-<id>.us-east-1.rds.amazonaws.com
+/platform/dev/apps/todolist/db_port               5432
+/platform/dev/apps/todolist/db_name               todolist
+/platform/dev/apps/platform-docs/hostname         docs.<base_domain>
+/platform/dev/apps/platform-docs/runner_scale_set arc-docs-runner
+```
+
+See [Worked example: TodoList](../onboarding/worked-example.md) for the full flow.
 
 ## How Argo CD consumes it
 

@@ -38,17 +38,19 @@ into the Argo CD Application.
 After an apply, TodoList reads these SSM parameters (see [The contract](../concepts/contract.md)):
 
 ```text
-/todolist/dev/cluster_name                todolist-dev
-/todolist/dev/ecr_repository_url          <account>.dkr.ecr.us-east-1.amazonaws.com/todolist
-/todolist/dev/db_host                     todolist-dev.cluster-<id>.us-east-1.rds.amazonaws.com
-/todolist/dev/db_port                     5432
-/todolist/dev/db_name                     todolist
-/todolist/dev/db_secret_arn               arn:aws:secretsmanager:...:secret:rds!cluster-...
-/todolist/dev/app_secret_arn              arn:aws:secretsmanager:...:secret:todolist-dev/app-...
-/todolist/dev/app_hostname                dev.todolist.<base_domain>
-/todolist/dev/ingress_certificate_arn     arn:aws:acm:...:certificate/...
-/todolist/dev/external_secrets_store_name aws-secrets-manager
-/todolist/dev/runner_scale_set_name       arc-runner-set
+/platform/dev/cluster_name                   todolist-dev
+/platform/dev/region                         us-east-1
+/platform/dev/ecr_registry                   <account>.dkr.ecr.us-east-1.amazonaws.com
+/platform/dev/external_secrets_store         aws-secrets-manager
+/platform/dev/apps/todolist/image_repository <account>.dkr.ecr.us-east-1.amazonaws.com/todolist
+/platform/dev/apps/todolist/runner_scale_set arc-runner-set
+/platform/dev/apps/todolist/hostname         dev.todolist.<base_domain>
+/platform/dev/apps/todolist/db_host          todolist-dev.cluster-<id>.us-east-1.rds.amazonaws.com
+/platform/dev/apps/todolist/db_port          5432
+/platform/dev/apps/todolist/db_name          todolist
+/platform/dev/apps/todolist/db_secret_arn    arn:aws:secretsmanager:...:secret:rds!cluster-...
+/platform/dev/apps/todolist/app_secret_arn   arn:aws:secretsmanager:...:secret:todolist-dev/app-...
+/platform/dev/apps/todolist/certificate_arn  arn:aws:acm:...:certificate/...
 ```
 
 The app pipeline reads the hostname and the runner from here; secrets stay in Secrets Manager.

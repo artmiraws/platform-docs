@@ -70,11 +70,12 @@ registered to the **platform** repository (the app runner registers to the app r
 - **Prod:** publish a GitHub Release (or run the `Promote prod` workflow manually). Promotion copies
   the digest dev already runs into `charts/todolist/gitops/prod.yaml`; no rebuild. The `prod`
   environment requires an approval before the job runs.
-- Wiring comes from OpenTofu (injected into the Argo CD `Application`) and the SSM parameters under
-  `/todolist/<env>`; it is not stored in the app repo.
-- **Platform handbook (`platform-docs`):** the same path with its own ECR repository, certificate, and
-  Argo CD `Application` (`platform-docs`). It is gated by `platform_docs_enabled` until the
-  `platform-docs` repository exists; the contract lives under `/todolist/<env>/platform-docs/*`.
+- Wiring comes from the [contract](../concepts/contract.md): SSM parameters under `/platform/<env>`
+  (environment facts) and `/platform/<env>/apps/<app>` (application facts). It is not stored in the
+  app repo.
+- **Platform handbook (`platform-docs`):** the same path with its own runner and contract under
+  `/platform/<env>/apps/platform-docs/*`; the site itself is a static S3 + CloudFront deployment
+  owned by the platform-docs repository.
 
 ## Argo CD
 
