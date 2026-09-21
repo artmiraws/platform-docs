@@ -97,4 +97,4 @@ modules. Model D is the more ambitious rewrite and a candidate for the future.
   (platform vs application separation and its open questions)
 - [Ownership](../concepts/ownership.md) and
   [Repository structure](../getting-started/repository-structure.md)
-- Tasks `GITOPS-HUB` and `PLATFORM-RENAME`
+- Tasks [`GITOPS-HUB`](../tasks.md) and [`PLATFORM-RENAME`](../tasks.md)

@@ -505,7 +505,7 @@ east-west traffic between multiple services, which this platform does not yet ha
 - **North-south TLS:** ALB with an ACM certificate in front of the Ingress (ADR-007).
 - **Network isolation:** Kubernetes `NetworkPolicy` for coarse pod-level segmentation.
 - **Health and rollout safety:** probes, a PodDisruptionBudget, and `maxUnavailable: 0` (the chart).
-- **Observability:** metrics scraped by the kube-prometheus-stack baseline (`OBSERVABILITY`).
+- **Observability:** metrics scraped by the kube-prometheus-stack baseline ([`OBSERVABILITY`](../tasks.md)).
 - **App-level progressive delivery:** Argo Rollouts covers canary without a mesh (future work).
 
 **Consequences.** Fewer moving parts and lower cost and latency now, at the price of no mTLS between
@@ -520,7 +520,7 @@ current gap.
 - **Finer-grained L7 observability**, retries, timeouts, or circuit breaking at the mesh layer.
 - **Multi-tenant isolation** requirements stronger than `NetworkPolicy` can express.
 
-Revisit alongside `OBSERVABILITY` and the canary work; adopt a mesh only when one of the above is a
+Revisit alongside [`OBSERVABILITY`](../tasks.md) and the canary work; adopt a mesh only when one of the above is a
 concrete requirement, not preemptively.
 
 ## Assumptions

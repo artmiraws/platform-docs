@@ -31,9 +31,9 @@ debating something we have.
 |---|---|---|
 | Tests + coverage, dependency scanning, IaC scanning, SAST, pinned actions | Security | HS-01…HS-04, HS-07 |
 | NetworkPolicies, Pod Security Admission, DB security-group scope, split runner IAM | Security | HS-09…HS-12 |
-| Single Argo CD, platform-scoped naming, ECR owned by the platform, ApplicationSet, render-time plugin | Platform / GitOps | `GITOPS-HUB` |
-| Rename clusters/resources and move the contract to platform scope | Platform | `PLATFORM-RENAME` |
-| Observability baseline (metrics + a few dashboards and alerts) | Observability | `OBSERVABILITY`, HS-18 |
+| Single Argo CD, platform-scoped naming, ECR owned by the platform, ApplicationSet, render-time plugin | Platform / GitOps | [`GITOPS-HUB`](tasks.md) |
+| Rename clusters/resources and move the contract to platform scope | Platform | [`PLATFORM-RENAME`](tasks.md) |
+| Observability baseline (metrics + a few dashboards and alerts) | Observability | [`OBSERVABILITY`](tasks.md), HS-18 |
 
 ## Discovery — spike, then an ADR
 
@@ -45,12 +45,12 @@ Each item is a timeboxed investigation that ends in a decision record (and, if a
 | D2 | Kubernetes-native cloud resources? | Crossplane · AWS Controllers for Kubernetes (ACK) · keep Terraform | ADR |
 | D3 | IaC language? | OpenTofu (HCL) · Pulumi (general-purpose languages) | ADR |
 | D4 | GitOps engine (revisit)? | Argo CD (ADR-017) · Flux CD | Revisit ADR-017 |
-| D5 | Observability stack? | kube-prometheus-stack · managed (CloudWatch/AMP) · Grafana Cloud | ADR + `OBSERVABILITY` |
+| D5 | Observability stack? | kube-prometheus-stack · managed (CloudWatch/AMP) · Grafana Cloud | ADR + [`OBSERVABILITY`](tasks.md) |
 | D6 | Progressive delivery? | Argo Rollouts · mesh-based (gated on D5) | ADR |
 | D7 | Policy / admission engine? | Kyverno · Gatekeeper · OPA | ADR (unblocks image verification) |
 | D8 | Chart distribution and promotion? | OCI chart + PR-based promotion (ADR-014 target) · current digest commit | Implementation of ADR-014 |
 | D9 | Contract delivery? | Render-time CMP plugin (ADR-015 target) · Terraform injection (interim) | Implementation of ADR-015 |
-| D10 | Single-Argo CD reachability? | VPC peering · hub / Transit Gateway | ADR (part of `GITOPS-HUB`) |
+| D10 | Single-Argo CD reachability? | VPC peering · hub / Transit Gateway | ADR (part of [`GITOPS-HUB`](tasks.md)) |
 
 **Why these need discovery, not execution:** each has more than one defensible answer whose trade-offs
 depend on scale and requirements we do not have yet (for example, Crossplane only pays off with many
@@ -64,7 +64,7 @@ only if the central-server/pull-native trade-off changes.
 
 | Item | Trigger to revisit | Source |
 |---|---|---|
-| Move third-party add-ons to Argo CD (app-of-apps) | wanting one reconciliation model for the cluster | `GITOPS-ADDONS`, ADR-009 |
+| Move third-party add-ons to Argo CD (app-of-apps) | wanting one reconciliation model for the cluster | [`GITOPS-ADDONS`](tasks.md), ADR-009 |
 | Karpenter + Spot, pod-density (prefix delegation), scheduled scaling | cost or capacity pressure | HS-26…HS-28 |
 | Production-like staging, load and migration testing | before any performance or migration claim | HS-23, HS-24 |
 | WAF, VPC endpoints, customer-managed KMS keys, audit logs | exposure, egress cost, or a compliance requirement | HS-14…HS-17 |

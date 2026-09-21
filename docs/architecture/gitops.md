@@ -7,7 +7,7 @@ and promotion through a pull request (ADR-014).
 !!! warning "Current vs target"
     This page describes the **target** model. Today's **interim**: both environments render the chart
     from `main` and the digest lives in `charts/todolist/gitops/<env>.yaml`; promotion is a direct
-    digest commit gated by the `prod` environment reviewer, not yet a pull request. `GITOPS-HUB`
+    digest commit gated by the `prod` environment reviewer, not yet a pull request. [`GITOPS-HUB`](../tasks.md)
     closes the gap. See [Worked example: TodoList](../onboarding/worked-example.md) for the concrete
     flow.
 
@@ -87,7 +87,7 @@ Today Terraform installs the cluster controllers (Helm provider) and Argo CD own
 application. Moving the third-party controllers (ALB controller, ExternalDNS, ESO, metrics-server,
 Cluster Autoscaler, ARC) to Argo CD — app-of-apps — would give one reconciliation model for the whole
 cluster. Terraform would keep the AWS-managed add-ons, IAM/IRSA, the Argo CD bootstrap, and the
-contract. This is future work (`GITOPS-ADDONS`): Terraform works today, so the added complexity
+contract. This is future work ([`GITOPS-ADDONS`](../tasks.md)): Terraform works today, so the added complexity
 (bootstrap ordering, the IAM split, the migration) is not justified yet.
 
 

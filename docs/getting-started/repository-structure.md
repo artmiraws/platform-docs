@@ -45,7 +45,7 @@ platform/
   resulting values as the [contract](../concepts/contract.md).
 - Each environment is a root with its own state key (`dev/terraform.tfstate`,
   `prod/terraform.tfstate`). The app resources live in that state today; moving them to per-app roots
-  is tracked in `GITOPS-HUB` (ADR-013).
+  is tracked in [`GITOPS-HUB`](../tasks.md) (ADR-013).
 
 ## `todolist-app` — an application
 

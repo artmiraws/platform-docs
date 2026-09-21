@@ -24,7 +24,7 @@ modules never reference an application by name, and each application's resources
 
 The platform root instantiates the app module with platform inputs (VPC, cluster, zone, registry,
 store) and publishes the resulting values as the contract. The app's resources live in the
-environment's Terraform state today; moving them to per-app roots is tracked in `GITOPS-HUB`.
+environment's Terraform state today; moving them to per-app roots is tracked in [`GITOPS-HUB`](../tasks.md).
 
 See [Repository structure](../getting-started/repository-structure.md) for the trees and
 [Worked example: TodoList](../onboarding/worked-example.md) for the concrete case.

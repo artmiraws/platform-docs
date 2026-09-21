@@ -11,7 +11,7 @@ prod. Neither runs `helm upgrade`; Argo CD reconciles.
     This page describes the **ADR-014 target**: per-environment `envs/<env>/values.yaml`, an OCI
     chart, and promotion as a pull request. Today's **interim** is simpler — both environments render
     the chart from `main`, the digest lives in `charts/todolist/gitops/<env>.yaml`, and the promotion
-    workflow commits the digest directly once the `prod` environment reviewer approves. `GITOPS-HUB`
+    workflow commits the digest directly once the `prod` environment reviewer approves. [`GITOPS-HUB`](../tasks.md)
     closes the gap.
 
 ## Runner
