@@ -38,6 +38,7 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 nav:
   - Home: index.md
+  - "Use case: TodoList": use-case.md
   - Roadmap: roadmap.md
   - Getting started:
       - Overview: getting-started/overview.md

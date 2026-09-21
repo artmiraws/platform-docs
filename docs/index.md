@@ -16,6 +16,7 @@ its local-development and chart docs in its own repository).
 
 | I want to... | Go to |
 |---|---|
+| See the end-to-end story | [Use case: TodoList](use-case.md) |
 | See what is committed, in discovery, or later | [Roadmap](roadmap.md) |
 | Understand what the platform is | [Getting started: overview](getting-started/overview.md) |
 | Know what I need before I start | [Getting started: prerequisites](getting-started/prerequisites.md) |
