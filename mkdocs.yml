@@ -41,6 +41,7 @@ nav:
   - Getting started:
       - Overview: getting-started/overview.md
       - Prerequisites: getting-started/prerequisites.md
+      - Repository structure: getting-started/repository-structure.md
       - Run the handbook locally: getting-started/run-the-handbook.md
   - Concepts:
       - Environments: concepts/environments.md
@@ -51,6 +52,7 @@ nav:
       - GitOps: architecture/gitops.md
   - Onboarding:
       - Add an application: onboarding/add-an-application.md
+      - "Worked example: TodoList": onboarding/worked-example.md
       - ApplicationSet: onboarding/applicationset.md
       - Pipeline: onboarding/pipeline.md
   - Operations:

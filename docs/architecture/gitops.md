@@ -8,7 +8,8 @@ and promotion through a pull request (ADR-014).
     This page describes the **target** model. Today's **interim**: both environments render the chart
     from `main` and the digest lives in `charts/todolist/gitops/<env>.yaml`; promotion is a direct
     digest commit gated by the `prod` environment reviewer, not yet a pull request. `GITOPS-HUB`
-    closes the gap.
+    closes the gap. See [Worked example: TodoList](../onboarding/worked-example.md) for the concrete
+    flow.
 
 !!! info "Scope"
     This page is the **model** (why trunk-based, the flow, ownership). For the concrete workflows an

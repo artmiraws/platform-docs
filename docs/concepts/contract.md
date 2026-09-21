@@ -9,6 +9,27 @@ It decouples the two repositories. The platform can change how a value is produc
 the interface an application depends on. The contract is the only coupling point, and it is versioned
 and documented here.
 
+## Current shape (dev)
+
+Today the parameters are all app-scoped under `/todolist/<env>/`, because the platform provisions the
+single application's database and secrets. The keys the TodoList app reads:
+
+```text
+/todolist/dev/cluster_name
+/todolist/dev/ecr_repository_url
+/todolist/dev/db_host
+/todolist/dev/db_port
+/todolist/dev/db_name
+/todolist/dev/db_secret_arn
+/todolist/dev/app_secret_arn
+/todolist/dev/app_hostname
+/todolist/dev/ingress_certificate_arn
+/todolist/dev/external_secrets_store_name
+/todolist/dev/runner_scale_set_name
+```
+
+See [Worked example: TodoList](../onboarding/worked-example.md) for the actual values.
+
 ## Shape (proposed)
 
 Split by ownership: **environment facts** are environment-scoped, **application facts** are

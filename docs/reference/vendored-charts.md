@@ -4,6 +4,11 @@ The infrastructure installs third-party controllers with Helm. Their charts are 
 files under each module's `charts/` directory and referenced by local path, so `tofu plan` and
 `tofu apply` never depend on external chart repositories. See ADR-004.
 
+Each chart is installed by a platform module (for example `modules/alb` installs
+`aws-load-balancer-controller`); the application's own chart is not vendored here — it lives in the
+application repository and is reconciled by Argo CD. See
+[Repository structure](../getting-started/repository-structure.md).
+
 | Chart | Version | Source repository | Vendored path | SHA-256 |
 |---|---|---|---|---|
 | aws-load-balancer-controller | 3.5.0 | `https://aws.github.io/eks-charts` | `modules/alb/charts/aws-load-balancer-controller-3.5.0.tgz` | `45051f634b33e10baccb3354d0681b7de787c60445e599fa276e0c9aedd4ccd5` |

@@ -17,9 +17,11 @@ its local-development and chart docs in its own repository).
 |---|---|
 | Understand what the platform is | [Getting started: overview](getting-started/overview.md) |
 | Know what I need before I start | [Getting started: prerequisites](getting-started/prerequisites.md) |
+| See how the repositories are laid out | [Getting started: repository structure](getting-started/repository-structure.md) |
 | Understand dev vs prod | [Concepts: environments](concepts/environments.md) |
 | Know who owns what | [Concepts: ownership](concepts/ownership.md) |
 | Consume platform values in my app | [Concepts: the contract](concepts/contract.md) |
+| See a full example end to end | [Onboarding: worked example (TodoList)](onboarding/worked-example.md) |
 | Deploy my application | [Onboarding: add an application](onboarding/add-an-application.md) |
 | Operate or troubleshoot the platform | [Operations: runbook](operations/runbook.md) |
 | See why things are the way they are | [Decisions](decisions/index.md) |
