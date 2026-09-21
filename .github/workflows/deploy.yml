@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: write
+  contents: read
 
 concurrency:
   group: docs-deploy
@@ -41,27 +41,11 @@ jobs:
         run: aws sts get-caller-identity
 
       - name: Apply infrastructure
-        id: apply
-        continue-on-error: true
-        run: |
-          set -o pipefail
-          BUCKET="todolist-tfstate-$(aws sts get-caller-identity --query Account --output text)"
-          {
-            tofu -chdir=infra init -input=false -backend-config="bucket=$BUCKET"
-            tofu -chdir=infra apply -input=false -no-color -auto-approve
-          } 2>&1 | tee /tmp/infra.log
-
-      - name: Capture failure (diagnostic)
-        if: steps.apply.outcome == 'failure'
         run: |
           set -euo pipefail
-          git config user.name "github-actions[bot]"
-          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          { echo '```'; tail -80 /tmp/infra.log; echo '```'; } > DIAG.md
-          git add DIAG.md
-          git commit -m "chore: capture docs pipeline error [skip ci]"
-          git push origin HEAD:main
-          exit 1
+          BUCKET="todolist-tfstate-$(aws sts get-caller-identity --query Account --output text)"
+          tofu -chdir=infra init -input=false -backend-config="bucket=$BUCKET"
+          tofu -chdir=infra apply -input=false -no-color -auto-approve
 
       - uses: actions/setup-python@v5
         with:
