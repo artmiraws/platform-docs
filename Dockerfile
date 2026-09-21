@@ -9,6 +9,9 @@ RUN mkdocs build --strict
 
 FROM nginx:1.27-alpine
 
+# Pull patched OS packages (for example the openssl CVE in the base image) at build time.
+RUN apk upgrade --no-cache
+
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 COPY --from=build /docs/site /usr/share/nginx/html
 
