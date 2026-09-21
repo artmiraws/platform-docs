@@ -1,0 +1,33 @@
+replicaCount: 2
+
+image:
+  repository: ""
+  # Prefer an immutable digest in CI (for example sha256:...); tag is the fallback.
+  digest: ""
+  tag: ""
+  pullPolicy: IfNotPresent
+
+imagePullSecrets: []
+nameOverride: ""
+fullnameOverride: ""
+
+service:
+  port: 80
+
+ingress:
+  enabled: true
+  className: alb
+  host: ""
+  annotations: {}
+
+resources:
+  requests:
+    cpu: 10m
+    memory: 32Mi
+  limits:
+    cpu: 100m
+    memory: 128Mi
+
+nodeSelector: {}
+tolerations: []
+affinity: {}

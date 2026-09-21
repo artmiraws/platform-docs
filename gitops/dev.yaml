@@ -1,0 +1,5 @@
+# Desired dev image, updated by CI (.github/workflows/deploy-dev.yml). Argo CD reconciles it.
+# Only the image digest lives here; the rest of the wiring (repository, ingress, certificate) is
+# injected by the platform so no account IDs, ARNs, or hostnames are committed.
+image:
+  digest: "sha256:98fd8dc133d67d4d5c0a324bffe518af54ad3da7ffeb2deb4a1c916ae4ae4a80"

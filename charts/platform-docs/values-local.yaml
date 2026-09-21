@@ -1,0 +1,11 @@
+replicaCount: 1
+
+image:
+  repository: platform-docs
+  tag: local
+  pullPolicy: IfNotPresent
+
+ingress:
+  enabled: true
+  className: traefik
+  host: platform-docs.localhost
