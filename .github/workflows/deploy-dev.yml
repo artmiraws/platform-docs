@@ -4,7 +4,7 @@ on:
   push:
     branches: [main]
     paths-ignore:
-      - "gitops/**"
+      - "charts/platform-docs/gitops/**"
   workflow_dispatch:
 
 permissions:
@@ -23,7 +23,7 @@ env:
   ARGOCD_NAMESPACE: argocd
   NAMESPACE: platform-docs
   HELM_CHART: charts/platform-docs
-  DIGEST_FILE: gitops/dev.yaml
+  DIGEST_FILE: charts/platform-docs/gitops/dev.yaml
   SSM_PREFIX: /todolist/dev/platform-docs
 
 jobs:

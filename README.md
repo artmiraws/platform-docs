@@ -16,8 +16,8 @@ platform-docs/
 ├── Dockerfile                 # multi-stage: mkdocs build -> nginx
 ├── nginx.conf                 # serves the site and /healthz
 ├── charts/platform-docs/      # the Helm chart (local + cloud)
+│   ├── gitops/dev.yaml        # desired image digest (written by CI)
 │   └── templates/
-├── gitops/dev.yaml            # desired image digest (written by CI)
 ├── .github/workflows/         # dev deploy pipeline
 └── Makefile
 ```
@@ -43,7 +43,7 @@ make build-site  # strict build (fails on broken links)
 
 1. Push to `main` (or run **Deploy dev** manually).
 2. CI builds the image, scans it with Trivy (fails on CRITICAL), and pushes it to ECR.
-3. CI commits the image **digest** to `gitops/dev.yaml`.
+3. CI commits the image **digest** to `charts/platform-docs/gitops/dev.yaml`.
 4. Argo CD reconciles the chart from this repository plus that digest.
 5. CI smoke-tests `https://<docs hostname>/healthz`.
 
