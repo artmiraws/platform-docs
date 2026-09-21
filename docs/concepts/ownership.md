@@ -45,4 +45,4 @@ See [The contract](contract.md) for the interface between the two.
 !!! question "Open discussion"
     Whether an application should own its database, queue, and other app-scoped resources in its own
     repository (with the platform providing the modules) is **not decided**. See
-    [Who owns an application's infrastructure?](../decisions/open-discussion.md).
+    [App infrastructure ownership](../discovery/app-infrastructure-ownership.md).

@@ -44,7 +44,6 @@ nav:
       - Overview: getting-started/overview.md
       - Prerequisites: getting-started/prerequisites.md
       - Repository structure: getting-started/repository-structure.md
-      - Run the handbook locally: getting-started/run-the-handbook.md
   - Concepts:
       - Environments: concepts/environments.md
       - Ownership: concepts/ownership.md
@@ -59,10 +58,12 @@ nav:
       - Pipeline: onboarding/pipeline.md
   - Operations:
       - Runbook: operations/runbook.md
-      - Hardening backlog: operations/hardening.md
-  - Decisions:
-      - ADRs: decisions/index.md
-      - "Open discussion: app infrastructure": decisions/open-discussion.md
-  - Reference:
-      - Vendored charts: reference/vendored-charts.md
+      - Evidence: operations/evidence.md
+      - Backlog: operations/hardening.md
+  - Discovery:
+      - App infrastructure ownership: discovery/app-infrastructure-ownership.md
+      - Vendored charts: discovery/vendored-charts.md
+  - Decisions: decisions/index.md
   - Costs: costs.md
+  - Handbook:
+      - Run it locally: getting-started/run-the-handbook.md

@@ -90,11 +90,4 @@ cluster. Terraform would keep the AWS-managed add-ons, IAM/IRSA, the Argo CD boo
 contract. This is future work (`GITOPS-ADDONS`): Terraform works today, so the added complexity
 (bootstrap ordering, the IAM split, the migration) is not justified yet.
 
-## Why Argo CD and not Flux CD
 
-Argo CD was chosen over Flux CD for a **single control plane and view** across environments, the
-**`ApplicationSet`** that generates one Application per environment, the built-in **UI**, and the
-**config-management plugin** that resolves the contract at render time. Flux is a strong alternative
-with a lighter, pull-native, controller-only model and native SOPS secrets, but it optimizes for a
-different shape than this platform. The full comparison is in
-[ADR-017](../decisions/index.md#adr-017-gitops-engine-argo-cd-over-flux-cd).

@@ -90,7 +90,7 @@ roadmap.
 The honest gaps are in the [roadmap](roadmap.md): a single Argo CD across environments, observability,
 progressive delivery, policy/admission, and broader security gates. One design question is still open:
 whether an application should own its own infrastructure (database, queues) in its own repository —
-see the [open discussion](decisions/open-discussion.md).
+see [App infrastructure ownership](discovery/app-infrastructure-ownership.md).
 
 ## Links
 

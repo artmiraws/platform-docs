@@ -1,4 +1,4 @@
-# Hardening backlog (FUTURE-HARDENING)
+# Backlog
 
 **Status:** Proposed — none of the items below are implemented. This document is the deliverable for
 the `FUTURE-HARDENING` task: it records improvements as **individually approvable tasks** so each can

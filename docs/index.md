@@ -6,12 +6,6 @@ and how to add an application to it.
 Application-specific documentation lives with the application (for example, the TodoList app keeps
 its local-development and chart docs in its own repository).
 
-!!! info "Status"
-    This handbook is delivered like any other application: built in CI, pushed by digest, and
-    reconciled by Argo CD. The platform itself is a work in progress — the design and its open
-    questions are in [Decisions](decisions/index.md), and the roadmap is tracked in the
-    `GITOPS-HUB`, `PLATFORM-RENAME`, and `OBSERVABILITY` tasks.
-
 ## Start here
 
 | I want to... | Go to |

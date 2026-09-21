@@ -10,7 +10,7 @@ referenced by the architecture pages and the runbook.
 !!! question "Open discussion"
     Whether an application should own its infrastructure (database, queue, bucket, secret) in its own
     repository, with the platform providing only the modules, is **not decided**. See
-    [Who owns an application's infrastructure?](open-discussion.md).
+    [App infrastructure ownership](../discovery/app-infrastructure-ownership.md).
 
 ## ADR-001 — Infrastructure repository placement and ownership
 
@@ -95,7 +95,7 @@ implementation time and remain in standard support.
   them by local path, so `plan` and `apply` never depend on external chart repositories. Currently
   `aws-load-balancer-controller` 3.5.0, `external-secrets` 2.10.0, and `external-dns` 1.22.0.
   Updating a chart version means re-vendoring the tarball. Sources and SHA-256 checksums are
-  recorded in [`vendored-charts.md`](../reference/vendored-charts.md).
+  recorded in [`vendored-charts.md`](../discovery/vendored-charts.md).
 
 **Consequences.** Version choices are reproducible and reviewable, and plans work offline (a
 transient chart-repository failure cannot break `plan`). Versions are re-verified at apply time;

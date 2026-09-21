@@ -10,13 +10,14 @@ Every item sits in one of three horizons, and moves through a **decision funnel*
 ```text
 Idea ──► Discovery (timeboxed spike) ──► Decision (ADR) ──► Delivery (task) ──► Done
                     │                          │                  │
-              open-discussion.md          decisions/         TASKS.yaml
+               discovery/                 decisions/          TASKS.yaml
 ```
 
 - **Now — committed.** The *what* is decided; only execution remains. Lives in `TASKS.yaml` and the
-  [hardening backlog](operations/hardening.md).
+  [backlog](operations/hardening.md).
 - **Discovery — a spike, then an ADR.** Options are open. A timeboxed spike compares them and produces
-  a decision record; see [open discussion](decisions/open-discussion.md) for the first one.
+  a decision record; see [App infrastructure ownership](discovery/app-infrastructure-ownership.md)
+  for the first one.
 - **Later — future / optional.** Revisit only when a documented trigger fires (scale, a requirement,
   or a cost threshold).
 
@@ -78,12 +79,12 @@ only if the central-server/pull-native trade-off changes.
 | Artifact | Purpose |
 |---|---|
 | `TASKS.yaml` | the execution board (open / in progress / done) |
-| [hardening backlog](operations/hardening.md) | security, reliability, and cost items (HS-xx) |
+| [backlog](operations/hardening.md) | security, reliability, and cost items (HS-xx) |
 | [decisions](decisions/index.md) | accepted decisions (ADR-xxx) |
-| [open discussion](decisions/open-discussion.md) | options not yet decided |
+| [Discovery](discovery/app-infrastructure-ownership.md) | options not yet decided |
 | this page | the umbrella: horizon, theme, and status of every item |
 
 ## Related
 
-- [Decisions](decisions/index.md) · [Hardening backlog](operations/hardening.md) ·
-  [Open discussion](decisions/open-discussion.md) · [Costs](costs.md)
+- [Decisions](decisions/index.md) · [Backlog](operations/hardening.md) ·
+  [Discovery](discovery/app-infrastructure-ownership.md) · [Costs](costs.md)

@@ -1,4 +1,4 @@
-# Open discussion: who owns an application's infrastructure?
+# App infrastructure ownership
 
 **Status:** Open — not decided. This page records the question, the models, and a recommendation so the
 team can decide before changing the Terraform. It is the discussion behind ADR-013's open question
@@ -92,8 +92,8 @@ modules. Model D is the more ambitious rewrite and a candidate for the future.
 
 ## Related
 
-- [ADR-001](index.md#adr-001-infrastructure-repository-placement-and-ownership) (repository placement)
-- [ADR-013](index.md#adr-013-platform-vs-application-separation-one-argo-cd-and-the-platform-contract)
+- [ADR-001](../decisions/index.md#adr-001-infrastructure-repository-placement-and-ownership) (repository placement)
+- [ADR-013](../decisions/index.md#adr-013-platform-vs-application-separation-one-argo-cd-and-the-platform-contract)
   (platform vs application separation and its open questions)
 - [Ownership](../concepts/ownership.md) and
   [Repository structure](../getting-started/repository-structure.md)

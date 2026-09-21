@@ -23,8 +23,9 @@ already provisioned (see [Getting started](../getting-started/overview.md)).
 
 Before touching the platform, run your chart on a local k3d cluster: one chart, values per
 environment, the image imported locally. This catches chart, probe, and configuration errors in
-seconds instead of in a cloud apply, and it is how you iterate. See your repository's local guide;
-this handbook is a worked example ([Run the handbook locally](../getting-started/run-the-handbook.md)).
+seconds instead of in a cloud apply, and it is how you iterate. See the TodoList app's
+[local guide](https://github.com/artmiraws/todolist-app/blob/main/docs/local-kubernetes.md) and the
+[worked example](worked-example.md).
 
 ### 2. Read the contract
 
