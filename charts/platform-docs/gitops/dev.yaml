@@ -2,4 +2,4 @@
 # Only the image digest lives here; the rest of the wiring (repository, ingress, certificate) is
 # injected by the platform so no account IDs, ARNs, or hostnames are committed.
 image:
-  digest: "sha256:e39906c0b6247d9ac96a7c1efda5646d432d98287d59d10dbf73196ef6bb0e11"
+  digest: "sha256:f39c999fcbc4daf797185d0ed02cc4443f59dd675cea5f41137e1cf05be09490"
