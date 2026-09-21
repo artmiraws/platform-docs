@@ -28,8 +28,8 @@ env:
 
 jobs:
   build-and-deploy:
-    # Self-hosted ARC runner in the VPC (registered by the platform). Uses IRSA, not GitHub OIDC.
-    runs-on: arc-runner-set
+    # Self-hosted ARC runner in the VPC (registered by the platform to this repository). Uses IRSA.
+    runs-on: arc-docs-runner
     environment: dev
     steps:
       - uses: actions/checkout@v7
