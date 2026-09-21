@@ -1,0 +1,82 @@
+name: Deploy docs
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: docs-deploy
+  cancel-in-progress: false
+
+env:
+  AWS_REGION: us-east-1
+
+jobs:
+  deploy:
+    # Self-hosted runner in the VPC (registered by the platform to this repository). Uses IRSA.
+    runs-on: arc-docs-runner
+    environment: dev
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install tools
+        run: |
+          set -euo pipefail
+          mkdir -p "$HOME/.local/bin"
+          curl -fsSL -o /tmp/tofu.zip \
+            "https://github.com/opentofu/opentofu/releases/download/v1.11.5/tofu_1.11.5_linux_amd64.zip"
+          unzip -q /tmp/tofu.zip -d "$HOME/.local/bin"
+          if ! command -v aws >/dev/null 2>&1; then
+            curl -sS "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o /tmp/awscliv2.zip
+            unzip -q /tmp/awscliv2.zip -d /tmp
+            /tmp/aws/install -i "$HOME/.local/aws-cli" -b "$HOME/.local/bin"
+          fi
+          echo "$HOME/.local/bin" >> "$GITHUB_PATH"
+
+      - name: Show identity (IRSA)
+        run: aws sts get-caller-identity
+
+      - name: Apply infrastructure
+        run: |
+          set -euo pipefail
+          BUCKET="todolist-tfstate-$(aws sts get-caller-identity --query Account --output text)"
+          tofu -chdir=infra init -input=false -backend-config="bucket=$BUCKET"
+          tofu -chdir=infra apply -input=false -no-color -auto-approve
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build site
+        run: |
+          set -euo pipefail
+          pip install --quiet -r requirements.txt
+          mkdocs build --strict
+
+      - name: Sync to S3
+        run: |
+          set -euo pipefail
+          SITE_BUCKET="$(tofu -chdir=infra output -raw bucket_name)"
+          aws s3 sync site/ "s3://${SITE_BUCKET}" --delete
+
+      - name: Invalidate CloudFront
+        run: |
+          set -euo pipefail
+          DIST_ID="$(tofu -chdir=infra output -raw distribution_id)"
+          aws cloudfront create-invalidation --distribution-id "$DIST_ID" --paths '/*'
+
+      - name: Smoke test
+        run: |
+          set -euo pipefail
+          for i in $(seq 1 20); do
+            if curl -fsS --max-time 15 "https://docs.nexusauto.com.br/"; then
+              echo; echo "Smoke test passed"; exit 0
+            fi
+            echo "waiting for docs.nexusauto.com.br... ($i)"
+            sleep 10
+          done
+          echo "Smoke test failed"; exit 1
