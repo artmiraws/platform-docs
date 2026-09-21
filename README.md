@@ -39,14 +39,16 @@ make serve       # http://127.0.0.1:8000
 make build-site  # strict build (fails on broken links)
 ```
 
-## How it deploys to the platform
+## How it deploys
 
-1. Push to `main` (or run **Deploy dev** manually).
-2. CI builds the image, scans it with Trivy (fails on CRITICAL), and pushes it to ECR.
-3. CI commits the image **digest** to `charts/platform-docs/gitops/dev.yaml`.
-4. Argo CD reconciles the chart from this repository plus that digest.
-5. CI smoke-tests `https://<docs hostname>/healthz`.
+The handbook is a **static site** on S3 + CloudFront (`docs.nexusauto.com.br`), and it owns its own
+infrastructure (`infra/`).
+
+1. Push to `main` (or run **Deploy docs** manually).
+2. CI applies `infra/` (S3 bucket, CloudFront with an origin access control, ACM certificate, and the
+   Route53 record).
+3. CI builds the site (`mkdocs build --strict`) and syncs it to S3.
+4. CI invalidates the CloudFront cache and smoke-tests `https://docs.nexusauto.com.br/`.
 
 CI runs on the platform's self-hosted runner (in the VPC, IRSA). No AWS keys are stored in this
-repository, and only the digest is committed — the rest of the wiring comes from the platform's
-contract in SSM.
+repository.

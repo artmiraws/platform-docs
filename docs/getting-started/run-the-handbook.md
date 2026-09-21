@@ -53,8 +53,9 @@ directly. If your resolver does not resolve `*.localhost`, use the `Host` header
 curl -H 'Host: platform-docs.localhost' http://localhost:8080/
 ```
 
-## Where this is going
+## Where it is deployed
 
-Locally the site is built and applied by hand. On the platform it is delivered like any other
-application: built in CI, pushed by digest, and reconciled by Argo CD. The same chart is used in both
-places, and only the values differ — the onboarding guide in practice.
+The handbook is served as a **static site** on S3 + CloudFront at
+<https://docs.nexusauto.com.br/>. It owns its own infrastructure (`infra/`), and its pipeline applies
+that infrastructure, builds the site, syncs it to S3, and invalidates the CloudFront cache. Locally
+the site is built and run by hand with `make up` — no cloud dependency.
