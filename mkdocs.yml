@@ -40,6 +40,7 @@ nav:
   - Home: index.md
   - "Use case: TodoList": use-case.md
   - Roadmap: roadmap.md
+  - Tasks: tasks.md
   - Getting started:
       - Overview: getting-started/overview.md
       - Prerequisites: getting-started/prerequisites.md
