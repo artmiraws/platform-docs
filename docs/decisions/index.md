@@ -7,6 +7,11 @@ referenced by the architecture pages and the runbook.
 - **Status:** Accepted (pending the open items noted in individual records)
 - **Scope:** the `dev` and `prod` EKS environments and the platform that hosts applications.
 
+!!! question "Open discussion"
+    Whether an application should own its infrastructure (database, queue, bucket, secret) in its own
+    repository, with the platform providing only the modules, is **not decided**. See
+    [Who owns an application's infrastructure?](open-discussion.md).
+
 ## ADR-001 — Infrastructure repository placement and ownership
 
 **Context.** The project uses a dedicated infrastructure repository and an application repository.

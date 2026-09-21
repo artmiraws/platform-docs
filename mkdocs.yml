@@ -58,7 +58,9 @@ nav:
   - Operations:
       - Runbook: operations/runbook.md
       - Hardening backlog: operations/hardening.md
-  - Decisions: decisions/index.md
+  - Decisions:
+      - ADRs: decisions/index.md
+      - "Open discussion: app infrastructure": decisions/open-discussion.md
   - Reference:
       - Vendored charts: reference/vendored-charts.md
   - Costs: costs.md
