@@ -205,4 +205,11 @@ NAT gateway), and a single Aurora writer is not database HA (no reader/failover)
 
 ## Costs
 
-See [`costs.md`](../costs.md). Both environments are ephemeral — destroy them between demo windows.
+See [Costs](../costs.md). Both environments are ephemeral. Two levers, in `platform/scripts/cost.sh`:
+
+- **Sleep (short breaks).** `scripts/cost.sh sleep` stops Aurora and scales the node groups to 0;
+  `scripts/cost.sh wake` reverses it. This removes the node and Aurora lines but keeps EKS and NAT.
+- **Destroy (longer gaps).** `tofu destroy` removes everything, including the EKS control planes and
+  NAT gateways — the ~$0.29/hour floor that cannot be paused. Use it for anything longer than a day.
+
+`scripts/cost.sh status` shows what is running and the estimated burn.

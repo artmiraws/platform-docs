@@ -77,6 +77,19 @@ Prod mirrors dev's footprint on purpose (ADR-011), so while both exist the varia
 Prod adds EKS control-plane logging (CloudWatch ingestion) and 14-day backups. Like dev, prod is
 destroyed after the demo window; keeping both always-on would be roughly **US$446/month**.
 
+## Reducing the burn
+
+Two levers, depending on how long the stack will sit idle (`platform/scripts/cost.sh`):
+
+| Lever | Stops | Leaves running | Use when |
+|---|---|---|---|
+| `scripts/cost.sh sleep` | Aurora compute, EC2 nodes | EKS control plane, NAT, storage, ECR | overnight / a few hours |
+| `tofu destroy` | everything billable | ECR storage, snapshots | more than a day |
+
+The EKS control plane (~US$0.10/hour) and the NAT gateway (~US$0.045/hour) **cannot be paused** — they
+are the floor (~US$0.29/hour for both environments) and only `destroy` removes them.
+`scripts/cost.sh status` shows the current burn.
+
 ## Budget
 
 - A monthly cost budget of **US$50** is planned, with alerts at **50% (US$25)**, **80% (US$40)**,
