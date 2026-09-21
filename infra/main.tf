@@ -129,9 +129,16 @@ resource "aws_cloudfront_distribution" "this" {
     }
   }
 
-  # MkDocs produces 404.html; serve it for unknown paths.
+  # MkDocs produces 404.html; serve it for unknown paths. S3 (with an OAC) returns 403 for a missing
+  # object rather than 404, so map both.
   custom_error_response {
     error_code         = 404
+    response_code      = 404
+    response_page_path = "/404.html"
+  }
+
+  custom_error_response {
+    error_code         = 403
     response_code      = 404
     response_page_path = "/404.html"
   }
