@@ -52,3 +52,10 @@ infrastructure (`infra/`).
 
 CI runs on the platform's self-hosted runner (in the VPC, IRSA). No AWS keys are stored in this
 repository.
+
+If the platform runner is unavailable (for example, the cluster is destroyed), publish from a machine
+with AWS credentials — the site and its infrastructure are independent of the cluster:
+
+```bash
+make publish   # build --strict, sync to S3, invalidate CloudFront
+```

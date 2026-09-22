@@ -7,16 +7,18 @@ VALUES           ?= $(CHART)/values-local.yaml
 HOST_PORT        ?= 8080
 DOCS_HOSTNAME    ?= platform-docs.localhost
 EXPECTED_CONTEXT ?= k3d-$(CLUSTER_NAME)
+INFRA            ?= infra
 
 .DEFAULT_GOAL := help
 
-.PHONY: help serve build-site build cluster import deploy restart wait status logs health up down destroy clean check-context
+.PHONY: help serve build-site publish build cluster import deploy restart wait status logs health up down destroy clean check-context
 
 help:
 	@echo "Targets:"
 	@echo "  make up          - build the image, ensure the cluster, import, deploy, wait"
 	@echo "  make serve       - run the site with live reload (mkdocs serve, 127.0.0.1:8000)"
 	@echo "  make build-site  - build the static site with strict link checking"
+	@echo "  make publish     - build and publish to S3 + CloudFront (no platform needed)"
 	@echo "  make build       - build the container image ($(IMAGE))"
 	@echo "  make deploy      - helm upgrade --install $(RELEASE) $(CHART) -f $(VALUES)"
 	@echo "  make restart     - restart the deployment (pick up a rebuilt image)"
@@ -35,6 +37,21 @@ serve:
 
 build-site:
 	mkdocs build --strict
+
+# Publish the built site to S3 + CloudFront without the platform (used when the in-VPC runner is
+# gone). Uses the AWS credentials in your shell; reads the bucket and distribution from the infra
+# state.
+publish: build-site
+	@set -euo pipefail; \
+	BACKEND_BUCKET="todolist-tfstate-$$(aws sts get-caller-identity --query Account --output text)"; \
+	tofu -chdir=$(INFRA) init -input=false -backend-config="bucket=$$BACKEND_BUCKET" >/dev/null; \
+	SITE_BUCKET="$$(tofu -chdir=$(INFRA) output -raw bucket_name)"; \
+	DISTRIBUTION_ID="$$(tofu -chdir=$(INFRA) output -raw distribution_id)"; \
+	echo "Syncing site/ to s3://$$SITE_BUCKET ..."; \
+	aws s3 sync site/ "s3://$$SITE_BUCKET" --delete; \
+	echo "Invalidating CloudFront $$DISTRIBUTION_ID ..."; \
+	aws cloudfront create-invalidation --distribution-id "$$DISTRIBUTION_ID" --paths '/*' --output text >/dev/null; \
+	echo "Published: https://docs.nexusauto.com.br/"
 
 build:
 	docker build -t $(IMAGE) .
