@@ -6,9 +6,9 @@ application deployed onto the platform.
 
 | Repository | Owns |
 |---|---|
-| `platform` | Clusters, networking, add-ons, Argo CD, the registry, the contract, and CI runners. |
-| `todolist-app` | The application image, Helm chart, pipeline, and app-specific resources. |
-| `platform-docs` | This handbook (content, chart, and pipeline). |
+| [platform](https://github.com/artmiraws/platform) | Clusters, networking, add-ons, Argo CD, the registry, the contract, and CI runners. |
+| [todolist-app](https://github.com/artmiraws/todolist-app) | The application image, Helm chart, pipeline, and app-specific resources. |
+| [platform-docs](https://github.com/artmiraws/platform-docs) | This handbook (content, chart, and pipeline). |
 
 ## `platform` — the foundation
 

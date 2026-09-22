@@ -11,6 +11,27 @@
 - **Access:** Route 53 → ALB (ACM TLS) → Ingress → Service → pods → Aurora.
 - **Secrets:** Secrets Manager → External Secrets Operator → Kubernetes Secret → pods.
 
+<style>
+  .user-access-flow-light {
+    display: block;
+  }
+
+  .user-access-flow-dark {
+    display: none;
+  }
+
+  [data-md-color-scheme="slate"] .user-access-flow-light {
+    display: none;
+  }
+
+  [data-md-color-scheme="slate"] .user-access-flow-dark {
+    display: block;
+  }
+</style>
+
+<img class="user-access-flow-light" src="../../assets/user-access-flow-light.png" alt="User access flow diagram in light mode" width="100%">
+<img class="user-access-flow-dark" src="../../assets/user-access-flow-dark.png" alt="User access flow diagram in dark mode" width="100%">
+
 See the [runbook](../operations/runbook.md) for operations and the
 [decisions](../decisions/index.md) for rationale.
 

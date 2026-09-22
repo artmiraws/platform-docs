@@ -27,40 +27,85 @@ the chart version freezes the templates.
 
 ## Dev loop (continuous)
 
-```mermaid
-flowchart LR
-  dev["Developer"] -->|merge to main| ci["dev pipeline"]
-  ci -->|build + scan| img["image"]
-  img -->|push by digest| ecr["ECR"]
-  ci -->|commit digest| cfg["envs/dev/values.yaml"]
-  cfg --> argoDev["Argo CD (dev)"]
-  argoDev -->|chart source on main + digest| appDev["dev app"]
+```text
+            +---------------------------+
+            | Developer / GitHub PR     |
+            | merge to main             |
+            +-------------+-------------+
+                          |
+                          v
+      +----------------------------------------+
+      | todolist-app GitHub Actions            |
+      | - build image                          |
+      | - Trivy scan                           |
+      | - push to ECR by digest                |
+      | - write digest to charts/todolist/     |
+      |   gitops/dev.yaml                      |
+      +-------------------+--------------------+
+                          |
+                          v
+      +----------------------------------------+
+      | Argo CD                                |
+      | Reconciles Helm chart + image digest   |
+      | from app repo main                     |
+      +-------------------+--------------------+
+                          |
+                          v
+      +----------------------------------------+
+      | Kubernetes cluster (EKS)               |
+      | - Deployment: todolist                 |
+      | - Service                              |
+      | - Ingress                              |
+      | - HPA / PDB                            |
+      | - ExternalSecret                       |
+      +-------------------+--------------------+
+                          |
+               +----------------------+
+               |                      |
+               v                      v
++---------------------+     +---------------------------+
+| Runtime app pod     |     | RDS / Secrets Manager     |
+| Flask TodoList      |     | DB + app secret           |
++---------------------+     +---------------------------+
+            |
+            v
++---------------------------+
+| ALB / public hostname     |
+| https://dev.todolist...   |
++---------------------------+
+            |
+            v
+      Browser / user
+
 ```
 
-1. Merge to `main`.
-2. CI builds, scans, and pushes the image, then commits the digest to `envs/dev/values.yaml`.
-3. Argo CD reconciles dev from the **chart source on `main`** plus that digest.
+
+- Merge to `main`.
+- CI builds, scans, and pushes the image, then commits the digest to `envs/dev/values.yaml`.
+- Argo CD reconciles dev from the **chart source on `main`** plus that digest.
 
 `main` affects **dev only**.
 
 ## Promotion flow (trunk-based)
 
-```mermaid
-flowchart LR
-  rel["Release published vX.Y.Z"] --> chart["package + push chart to OCI ECR"]
-  devdig["dev-validated digest"] --> pr["promotion PR: envs/prod/values.yaml"]
-  chart --> pr
-  pr --> review["review + merge"]
-  review --> argoProd["Argo CD (prod)"]
-  argoProd -->|pinned OCI chart + digest| appProd["prod app"]
+```text
+Dev validation
+  main -> build -> ECR -> digest -> dev.yaml -> Argo CD -> dev app
+                                      |
+                                      v
+                               smoke test / healthz
+                                      |
+                                      v
+prod promotion
+  release-please -> vX.Y.Z -> promote validated digest -> prod.yaml -> Argo CD -> prod app
 ```
 
-1. Publish a release (`vX.Y.Z`); the release workflow packages the chart as `X.Y.Z` and pushes it to
+- Publish a release (`vX.Y.Z`); the release workflow packages the chart as `X.Y.Z` and pushes it to
    the OCI registry.
-2. The promotion workflow opens a **pull request** updating `envs/prod/values.yaml` with the released
+- The promotion workflow opens a **pull request** updating `envs/prod/values.yaml` with the released
    chart version and the **digest dev already validated**.
-3. Review and merge the PR — the merge is the approval.
-4. Argo CD reconciles prod from the **pinned OCI chart version** plus the promoted digest.
+- Review and merge the PR — the merge is the approval.
+- Argo CD reconciles prod from the **pinned OCI chart version** plus the promoted digest.
 
 `main` commits never reach prod; the only path is the promotion PR.
 
